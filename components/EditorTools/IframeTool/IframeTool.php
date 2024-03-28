@@ -5,32 +5,32 @@
  * PHP version 7
  *
  * @category    CkEditor
- * @package     Xpressengine\Plugins\CkEditor
+ *
  * @author      XE Developers <developers@xpressengine.com>
  * @copyright   2019 Copyright XEHub Corp. <https://www.xehub.io>
  * @license     http://www.gnu.org/licenses/lgpl-3.0-standalone.html LGPL
+ *
  * @link        https://xpressengine.io
  */
 
 namespace Xpressengine\Plugins\CkEditor\Components\EditorTools\IframeTool;
 
+use Route;
 use Symfony\Component\DomCrawler\Crawler;
 use XeConfig;
 use XeFrontend;
-use Route;
 use Xpressengine\Editor\AbstractTool;
 use Xpressengine\Plugins\CkEditor\Plugin;
-use Xpressengine\Http\Request;
-use XePresenter;
 
 /**
  * IframeTool
  *
  * @category    CkEditor
- * @package     Xpressengine\Plugins\CkEditor
+ *
  * @author      XE Developers <developers@xpressengine.com>
  * @copyright   2019 Copyright XEHub Corp. <https://www.xehub.io>
  * @license     http://www.gnu.org/licenses/lgpl-3.0-standalone.html LGPL
+ *
  * @link        https://xpressengine.io
  */
 class IframeTool extends AbstractTool
@@ -47,18 +47,18 @@ class IframeTool extends AbstractTool
         Route::fixed(Plugin::getId(), function () {
             Route::get('iframe_tool/popup/create', [
                 'as' => 'ckeditor::iframe_tool.popup',
-                'uses' => 'ComponentController@popup'
+                'uses' => 'ComponentController@popup',
             ]);
         }, ['namespace' => 'Xpressengine\\Plugins\\CkEditor\\Components\\EditorTools\\IframeTool']);
 
         Route::settings(Plugin::getId(), function () {
             Route::get('setting', [
                 'as' => 'xe.plugin.ckeditor.iframe_tool.settings.get',
-                'uses' => 'SettingController@getSetting'
+                'uses' => 'SettingController@getSetting',
             ]);
             Route::post('setting', [
                 'as' => 'xe.plugin.ckeditor.iframe_tool.settings.post',
-                'uses' => 'SettingController@postSetting'
+                'uses' => 'SettingController@postSetting',
             ]);
 
         }, ['namespace' => 'Xpressengine\\Plugins\\CkEditor\\Components\\EditorTools\\IframeTool']);
@@ -79,7 +79,7 @@ class IframeTool extends AbstractTool
     {
         $wls = function () {
             return implode(',', array_map(function ($item) {
-                return "'" . $item . "'";
+                return "'".$item."'";
             }, $this->getWhiteList()));
         };
         XeFrontend::html('ckeditor.iframe_tool.load_url')->content("
@@ -88,7 +88,7 @@ class IframeTool extends AbstractTool
 
                 var _url = {
                     popup: '".route('ckeditor::iframe_tool.popup')."',
-                    whiteList: [".call_user_func($wls)."]
+                    whiteList: [".call_user_func($wls).']
                 };
 
                 var URL = {
@@ -100,10 +100,10 @@ class IframeTool extends AbstractTool
                 window.iframeToolURL = URL;
             })();
         </script>
-        ")->load();
+        ')->load();
 
         XeFrontend::js([
-            asset($this->getAssetsPath() . '/iframe.js')
+            asset($this->getAssetsPath().'/iframe.js'),
         ])->load();
 
         XeFrontend::css([
@@ -117,13 +117,13 @@ class IframeTool extends AbstractTool
      */
     public function getIcon()
     {
-        return asset($this->getAssetsPath() . '/icon.png');
+        return asset($this->getAssetsPath().'/icon.png');
     }
 
     /**
      * Compile the raw content to be useful
      *
-     * @param string $content content
+     * @param  string  $content  content
      * @return string
      */
     public function compile($content)
@@ -135,16 +135,16 @@ class IframeTool extends AbstractTool
         $source = array_get($data, 'src');
         $host = parse_url($source, PHP_URL_HOST);
 
-        if (!$source || !in_array($host, $this->getWhiteList())) {
+        if (! $source || ! in_array($host, $this->getWhiteList())) {
             return '';
         }
 
         XeFrontend::css([
-            asset($this->getAssetsPath() . '/iframe.css')
+            asset($this->getAssetsPath().'/iframe.css'),
         ])->load();
 
-        $attr = array();
-        $result = array();
+        $attr = [];
+        $result = [];
         $embedVideo = false;
         $attr[] = 'src="'.$data['src'].'"';
 
@@ -168,7 +168,7 @@ class IframeTool extends AbstractTool
             $result[] = '<div class="xe-embed xe-embed-video">';
         }
 
-        $result[] = '<iframe ' . implode(' ', $attr) . '></iframe>';
+        $result[] = '<iframe '.implode(' ', $attr).'></iframe>';
 
         if ($embedVideo) {
             $result[] = '</div>';
@@ -179,12 +179,13 @@ class IframeTool extends AbstractTool
 
     private function getAssetsPath()
     {
-        return str_replace(base_path(), '', plugins_path() . '/ckeditor/components/EditorTools/IframeTool/assets');
+        return str_replace(base_path(), '', plugins_path().'/ckeditor/components/EditorTools/IframeTool/assets');
     }
 
     private function getWhiteList()
     {
         $config = XeConfig::get(static::getId());
+
         return $config ? $config->get('whitelist') : [];
     }
 }

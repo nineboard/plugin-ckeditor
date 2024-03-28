@@ -5,31 +5,30 @@
  * PHP version 7
  *
  * @category    CkEditor
- * @package     Xpressengine\Plugins\CkEditor
+ *
  * @author      XE Developers <developers@xpressengine.com>
  * @copyright   2019 Copyright XEHub Corp. <https://www.xehub.io>
  * @license     http://www.gnu.org/licenses/lgpl-3.0-standalone.html LGPL
+ *
  * @link        https://xpressengine.io
  */
 
 namespace Xpressengine\Plugins\CkEditor\Editors;
 
-use Illuminate\Contracts\Routing\UrlGenerator;
 use Xpressengine\Editor\AbstractEditor;
-use Route;
-use Xpressengine\Plugins\CkEditor\plugin;
 use Xpressengine\Plugin\PluginRegister;
 use Xpressengine\Plugins\CkEditor\CkEditorPluginInterface;
-use Illuminate\Contracts\Auth\Access\Gate;
+use Xpressengine\Plugins\CkEditor\plugin;
 
 /**
  * CkEditor
  *
  * @category    CkEditor
- * @package     Xpressengine\Plugins\CkEditor
+ *
  * @author      XE Developers <developers@xpressengine.com>
  * @copyright   2019 Copyright XEHub Corp. <https://www.xehub.io>
  * @license     http://www.gnu.org/licenses/lgpl-3.0-standalone.html LGPL
+ *
  * @link        https://xpressengine.io
  */
 class CkEditor extends AbstractEditor
@@ -64,7 +63,7 @@ class CkEditor extends AbstractEditor
 
     protected function getPlugins()
     {
-        return app('xe.pluginRegister')->get(self::getId() . PluginRegister::KEY_DELIMITER . 'plugin');
+        return app('xe.pluginRegister')->get(self::getId().PluginRegister::KEY_DELIMITER.'plugin');
     }
 
     /**
@@ -89,10 +88,10 @@ class CkEditor extends AbstractEditor
 
             $this->frontend->css([
                 plugin::asset('assets/css/editor.css'),
-                plugin::asset('assets/css/content.css')
+                plugin::asset('assets/css/content.css'),
             ])->load();
 
-            $lang = require realpath(__DIR__.'/../../langs') . '/lang.php';
+            $lang = require realpath(__DIR__.'/../../langs').'/lang.php';
 
             $keywords = array_keys($lang);
 
@@ -110,7 +109,7 @@ class CkEditor extends AbstractEditor
             expose_route('media_library.download_file');
 
             $this->frontend->translation(array_map(function ($keyword) {
-                return 'ckeditor::' . $keyword;
+                return 'ckeditor::'.$keyword;
             }, $keywords));
         }
     }
@@ -128,7 +127,7 @@ class CkEditor extends AbstractEditor
     /**
      * Determine if a editor html usable.
      *
-     * @return boolean
+     * @return bool
      */
     public function htmlable()
     {
@@ -138,13 +137,13 @@ class CkEditor extends AbstractEditor
     /**
      * Compile content body
      *
-     * @param string $content content
+     * @param  string  $content  content
      * @return string
      */
     protected function compileBody($content)
     {
         $this->frontend->css([
-            plugin::asset('assets/css/content.css')
+            plugin::asset('assets/css/content.css'),
         ])->load();
 
         // @deprecated `.__xe_contents_compiler` https://github.com/xpressengine/xpressengine/issues/867

@@ -5,30 +5,29 @@
  * PHP version 7
  *
  * @category    CkEditor
- * @package     Xpressengine\Plugins\CkEditor
+ *
  * @author      XE Developers <developers@xpressengine.com>
  * @copyright   2019 Copyright XEHub Corp. <https://www.xehub.io>
  * @license     http://www.gnu.org/licenses/lgpl-3.0-standalone.html LGPL
+ *
  * @link        https://xpressengine.io
  */
 
 namespace Xpressengine\Plugins\CkEditor\Components\EditorTools\ImageResizeTool;
 
 use App\Facades\XeFrontend;
-use Xpressengine\Editor\AbstractTool;
 use Route;
-use XePresenter;
-use Xpressengine\Plugins\CkEditor\Plugin;
-use Xpressengine\Http\Request;
+use Xpressengine\Editor\AbstractTool;
 
 /**
  * ImageResizeTool
  *
  * @category    CkEditor
- * @package     Xpressengine\Plugins\CkEditor
+ *
  * @author      XE Developers <developers@xpressengine.com>
  * @copyright   2019 Copyright XEHub Corp. <https://www.xehub.io>
  * @license     http://www.gnu.org/licenses/lgpl-3.0-standalone.html LGPL
+ *
  * @link        https://xpressengine.io
  */
 class ImageResizeTool extends AbstractTool
@@ -43,7 +42,7 @@ class ImageResizeTool extends AbstractTool
         Route::fixed(static::getId(), function () {
             Route::get('image_resize_tool/popup/create', [
                 'as' => 'ckeditor::image_resize_tool.popup',
-                'uses' => 'ComponentController@popup'
+                'uses' => 'ComponentController@popup',
             ]);
         }, ['namespace' => 'Xpressengine\\Plugins\\CkEditor\\Components\\EditorTools\\ImageResizeTool']);
     }
@@ -66,13 +65,13 @@ class ImageResizeTool extends AbstractTool
         </script>
         ")->load();
         XeFrontend::js([
-            asset($this->getAssetsPath() . '/ImageResizeTool.js'),
+            asset($this->getAssetsPath().'/ImageResizeTool.js'),
         ])->load();
     }
 
     public function getIcon()
     {
-        return asset($this->getAssetsPath() . '/icon.png');
+        return asset($this->getAssetsPath().'/icon.png');
     }
 
     public function compile($content)
@@ -82,6 +81,6 @@ class ImageResizeTool extends AbstractTool
 
     private function getAssetsPath()
     {
-        return str_replace(base_path(), '', plugins_path() . '/ckeditor/components/EditorTools/ImageResizeTool/assets');
+        return str_replace(base_path(), '', plugins_path().'/ckeditor/components/EditorTools/ImageResizeTool/assets');
     }
 }
