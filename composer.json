@@ -1,7 +1,10 @@
 {
-  "name": "xpressengine-plugin/ckeditor",
+  "name": "nineboard/plugin-ckeditor",
   "description": "CkEditor 에디터를 제공합니다.",
-  "keywords": ["xpressengine bundle", "XE CkEditor"],
+  "keywords": [
+    "xpressengine bundle",
+    "XE CkEditor"
+  ],
   "version": "1.0.12",
   "support": {
     "email": "developers@xpressengine.com"
@@ -64,12 +67,19 @@
   },
   "require-dev": {
     "phpunit/phpunit": "~4.0",
-    "mockery/mockery": "dev-master@dev"
+    "mockery/mockery": "*",
+    "laravel/pint": "^1.0"
   },
   "autoload": {
     "psr-4": {
       "Xpressengine\\Plugins\\CkEditor\\": "src/",
       "Xpressengine\\Plugins\\CkEditor\\Components\\": "components/"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "xpressengine/installer": true,
+      "wikimedia/composer-merge-plugin": true
     }
   }
 }

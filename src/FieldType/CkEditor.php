@@ -5,34 +5,34 @@
  * PHP version 7
  *
  * @category    CkEditor
- * @package     Xpressengine\Plugins\CkEditor
+ *
  * @author      XE Developers <developers@xpressengine.com>
  * @copyright   2019 Copyright XEHub Corp. <https://www.xehub.io>
  * @license     http://www.gnu.org/licenses/lgpl-3.0-standalone.html LGPL
+ *
  * @link        https://xpressengine.io
  */
 
 namespace Xpressengine\Plugins\CkEditor\FieldType;
 
-use Xpressengine\DynamicField\DynamicFieldHandler;
-use Xpressengine\DynamicField\AbstractType;
-use Xpressengine\DynamicField\ColumnEntity;
-use Xpressengine\DynamicField\ColumnDataType;
-use Xpressengine\Config\ConfigEntity;
-use Illuminate\Database\Query\Builder;
-use Xpressengine\Plugins\CkEditor\Editors\CkEditor as CkEditorComponent;
-use Xpressengine\Plugins\CkEditor\FieldSkin\CkEditorDefault;
 use View;
 use XeEditor;
+use Xpressengine\Config\ConfigEntity;
+use Xpressengine\DynamicField\AbstractType;
+use Xpressengine\DynamicField\ColumnDataType;
+use Xpressengine\DynamicField\ColumnEntity;
+use Xpressengine\Plugins\CkEditor\Editors\CkEditor as CkEditorComponent;
+use Xpressengine\Plugins\CkEditor\FieldSkin\CkEditorDefault;
 
 /**
  * CkEditor
  *
  * @category    CkEditor
- * @package     Xpressengine\Plugins\CkEditor
+ *
  * @author      XE Developers <developers@xpressengine.com>
  * @copyright   2019 Copyright XEHub Corp. <https://www.xehub.io>
  * @license     http://www.gnu.org/licenses/lgpl-3.0-standalone.html LGPL
+ *
  * @link        https://xpressengine.io
  */
 class CkEditor extends AbstractType
@@ -44,13 +44,21 @@ class CkEditor extends AbstractType
 
     // 네임스페이스 이름..
     protected $name = 'CK Editor';
+
     protected $description = '에디터';
+
     protected $sortable = false;
+
     protected $searchable = true;
+
     protected $searchColumnNames = ['contents'];
+
     protected $columns = [];
+
     protected $params = [];
+
     protected $configs = [];
+
     protected $rules = [];
 
     /**
@@ -65,7 +73,6 @@ class CkEditor extends AbstractType
         $register->add(CkEditorDefault::class);
         CkEditorDefault::boot();
     }
-
 
     /**
      * 스키마 구성을 위한 database column 설정
@@ -101,10 +108,10 @@ class CkEditor extends AbstractType
      * Dynamic Field 설정 페이지에서 각 fieldType 에 필요한 설정 등록 페이지 반환
      * return html tag string
      *
-     * @param ConfigEntity $config config entity
+     * @param  ConfigEntity  $config  config entity
      * @return string
      */
-    public function getSettingsView(ConfigEntity $config = null)
+    public function getSettingsView(?ConfigEntity $config = null)
     {
         return View::make('ckeditor::views/FieldType/CkEditor/settings', [
             'config' => $config,
@@ -125,6 +132,6 @@ class CkEditor extends AbstractType
     {
         parent::create($column);
 
-        XeEditor::setInstance($this->config->get('group') . '_' . $this->config->get('id'), CkEditorComponent::getId());
+        XeEditor::setInstance($this->config->get('group').'_'.$this->config->get('id'), CkEditorComponent::getId());
     }
 }

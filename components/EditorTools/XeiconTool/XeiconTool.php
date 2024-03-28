@@ -5,32 +5,30 @@
  * PHP version 7
  *
  * @category    CkEditor
- * @package     Xpressengine\Plugins\CkEditor
+ *
  * @author      XE Developers <developers@xpressengine.com>
  * @copyright   2019 Copyright XEHub Corp. <https://www.xehub.io>
  * @license     http://www.gnu.org/licenses/lgpl-3.0-standalone.html LGPL
+ *
  * @link        https://xpressengine.io
  */
 
 namespace Xpressengine\Plugins\CkEditor\Components\EditorTools\XeiconTool;
 
 use App\Facades\XeFrontend;
-use Illuminate\Contracts\Auth\Access\Gate;
-use Xpressengine\Editor\AbstractTool;
-use Xpressengine\Permission\Instance;
 use Route;
-use XePresenter;
+use Xpressengine\Editor\AbstractTool;
 use Xpressengine\Plugins\CkEditor\Plugin;
-use Xpressengine\Http\Request;
 
 /**
  * XeiconTool
  *
  * @category    CkEditor
- * @package     Xpressengine\Plugins\CkEditor
+ *
  * @author      XE Developers <developers@xpressengine.com>
  * @copyright   2019 Copyright XEHub Corp. <https://www.xehub.io>
  * @license     http://www.gnu.org/licenses/lgpl-3.0-standalone.html LGPL
+ *
  * @link        https://xpressengine.io
  */
 class XeiconTool extends AbstractTool
@@ -40,18 +38,17 @@ class XeiconTool extends AbstractTool
         static::route();
     }
 
-
     public static function route()
     {
         Route::fixed(Plugin::getId(), function () {
             Route::get('xeicon_tool/popup/create', [
                 'as' => 'ckeditor::xeicon_tool.popup',
-                'uses' => 'ComponentController@popup'
+                'uses' => 'ComponentController@popup',
             ]);
 
             Route::get('/popup/edit', [
                 'as' => 'ckeditor::xeicon_tool.popup-edit',
-                'uses' => 'ComponentController@edit'
+                'uses' => 'ComponentController@edit',
             ]);
         }, ['namespace' => 'Xpressengine\\Plugins\\CkEditor\\Components\\EditorTools\\XeiconTool']);
     }
@@ -87,11 +84,11 @@ class XeiconTool extends AbstractTool
         ")->load();
 
         XeFrontend::js([
-            asset($this->getAssetsPath() . '/xeicon.js')
+            asset($this->getAssetsPath().'/xeicon.js'),
         ])->load();
 
         XeFrontend::css([
-            asset('https://cdn.jsdelivr.net/npm/xeicon@2.3/xeicon.min.css')
+            asset('https://cdn.jsdelivr.net/npm/xeicon@2.3/xeicon.min.css'),
         ])->load();
     }
 
@@ -102,13 +99,13 @@ class XeiconTool extends AbstractTool
      */
     public function getIcon()
     {
-        return asset($this->getAssetsPath() . '/icon.png');
+        return asset($this->getAssetsPath().'/icon.png');
     }
 
     /**
      * Compile the raw content to be useful
      *
-     * @param string $content content
+     * @param  string  $content  content
      * @return string
      */
     public function compile($content)
@@ -118,6 +115,6 @@ class XeiconTool extends AbstractTool
 
     private function getAssetsPath()
     {
-        return str_replace(base_path(), '', plugins_path() . '/ckeditor/components/EditorTools/XeiconTool/assets');
+        return str_replace(base_path(), '', plugins_path().'/ckeditor/components/EditorTools/XeiconTool/assets');
     }
 }

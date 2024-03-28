@@ -5,31 +5,28 @@
  * PHP version 7
  *
  * @category    CkEditor
- * @package     Xpressengine\Plugins\CkEditor
+ *
  * @author      XE Developers <developers@xpressengine.com>
  * @copyright   2019 Copyright XEHub Corp. <https://www.xehub.io>
  * @license     http://www.gnu.org/licenses/lgpl-3.0-standalone.html LGPL
+ *
  * @link        https://xpressengine.io
  */
 
 namespace Xpressengine\Plugins\CkEditor;
 
-use Xpressengine\Permission\Grant;
 use Xpressengine\Plugin\AbstractPlugin;
-use XeSkin;
-use Route;
-use XeConfig;
 use Xpressengine\Translation\Translator;
-use Xpressengine\User\Rating;
 
 /**
  * Plugin
  *
  * @category    CkEditor
- * @package     Xpressengine\Plugins\CkEditor
+ *
  * @author      XE Developers <developers@xpressengine.com>
  * @copyright   2019 Copyright XEHub Corp. <https://www.xehub.io>
  * @license     http://www.gnu.org/licenses/lgpl-3.0-standalone.html LGPL
+ *
  * @link        https://xpressengine.io
  */
 class Plugin extends AbstractPlugin
@@ -44,7 +41,7 @@ class Plugin extends AbstractPlugin
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function unInstall()
     {
@@ -52,9 +49,9 @@ class Plugin extends AbstractPlugin
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
-    public function checkUpdated($installedVersion = NULL)
+    public function checkUpdated($installedVersion = null)
     {
         if (version_compare($installedVersion, '0.9.1', '<=')) {
             return false;
@@ -77,15 +74,15 @@ class Plugin extends AbstractPlugin
      */
     public function boot()
     {
-//        app()->bind('xe.plugin.ckeditor', function ($app) {
-//            return $this;
-//        }, true);
+        //        app()->bind('xe.plugin.ckeditor', function ($app) {
+        //            return $this;
+        //        }, true);
     }
 
     /**
      * activate
      *
-     * @param null $installedVersion installed version
+     * @param  null  $installedVersion  installed version
      * @return void
      */
     public function activate($installedVersion = null)

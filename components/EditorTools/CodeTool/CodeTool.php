@@ -5,32 +5,28 @@
  * PHP version 7
  *
  * @category    CkEditor
- * @package     Xpressengine\Plugins\CkEditor
+ *
  * @author      XE Developers <developers@xpressengine.com>
  * @copyright   2019 Copyright XEHub Corp. <https://www.xehub.io>
  * @license     http://www.gnu.org/licenses/lgpl-3.0-standalone.html LGPL
+ *
  * @link        https://xpressengine.io
  */
 
 namespace Xpressengine\Plugins\CkEditor\Components\EditorTools\CodeTool;
 
 use App\Facades\XeFrontend;
-use Illuminate\Contracts\Auth\Access\Gate;
 use Xpressengine\Editor\AbstractTool;
-use Xpressengine\Permission\Instance;
-use Route;
-use XePresenter;
-use Xpressengine\Plugins\CkEditor\Plugin;
-use Xpressengine\Http\Request;
 
 /**
  * CodeTool
  *
  * @category    CkEditor
- * @package     Xpressengine\Plugins\CkEditor
+ *
  * @author      XE Developers <developers@xpressengine.com>
  * @copyright   2019 Copyright XEHub Corp. <https://www.xehub.io>
  * @license     http://www.gnu.org/licenses/lgpl-3.0-standalone.html LGPL
+ *
  * @link        https://xpressengine.io
  */
 class CodeTool extends AbstractTool
@@ -42,7 +38,7 @@ class CodeTool extends AbstractTool
         'diagram', 'php',
         'javascript', 'css', 'markup', 'scss',
         'c', 'clike', 'cpp', 'csharp', 'objectivec',
-        'go', 'java', 'pascal' , 'ruby', 'swift'
+        'go', 'java', 'pascal', 'ruby', 'swift',
     ];
 
     public static function boot()
@@ -74,11 +70,11 @@ class CodeTool extends AbstractTool
         ')->load();
 
         XeFrontend::js([
-            asset('plugins/ckeditor/assets/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js')
+            asset('plugins/ckeditor/assets/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js'),
         ])->load();
 
         XeFrontend::js([
-            asset($this->getAssetsPath() . '/code.js')
+            asset($this->getAssetsPath().'/code.js'),
         ])->load();
 
         XeFrontend::css([
@@ -100,7 +96,7 @@ class CodeTool extends AbstractTool
     /**
      * Compile the raw content to be useful
      *
-     * @param string $content content
+     * @param  string  $content  content
      * @return string
      */
     public function compile($content)
@@ -112,11 +108,11 @@ class CodeTool extends AbstractTool
         $blockParts = [];
 
         $_this = $this;
-        $supportLanguages = join('|', $this->languages);
+        $supportLanguages = implode('|', $this->languages);
         foreach ($blocks as $block) {
             if ($this->isCodeBlock($block)) {
                 $blockParts[] = preg_replace_callback(
-                    "/^^(".$supportLanguages.")(?:#([\-\~,0-9]+))?(.+)/s",
+                    '/^^('.$supportLanguages.")(?:#([\-\~,0-9]+))?(.+)/s",
                     function ($matches) use ($_this) {
                         $language = $matches[1];
                         $line = $matches[2];
@@ -131,18 +127,19 @@ class CodeTool extends AbstractTool
                 $blockParts[] = $block;
             }
         }
+
         return implode('', $blockParts);
     }
 
     private function getAssetsPath()
     {
-        return str_replace(base_path(), '', plugins_path() . '/ckeditor/components/EditorTools/CodeTool/assets');
+        return str_replace(base_path(), '', plugins_path().'/ckeditor/components/EditorTools/CodeTool/assets');
     }
 
     /**
      * 코드 블럭 분할
      *
-     * @param string $content content
+     * @param  string  $content  content
      * @return array
      */
     private function splitBlocks($content)
@@ -153,7 +150,7 @@ class CodeTool extends AbstractTool
     /**
      * check is code block
      *
-     * @param string $block block
+     * @param  string  $block  block
      * @return bool
      */
     public function isCodeBlock($block)
@@ -163,19 +160,20 @@ class CodeTool extends AbstractTool
                 return true;
             }
         }
+
         return false;
     }
 
     private function codes($language, $line, $code)
     {
-        return join('', [
+        return implode('', [
             "<div class='code-wrap'>",
             "<div class='plugins'>",
             "<span class='language' style='display:none;'>$language</span>",
             "<span class='expend'><i class='xi-overscan'></i></span>",
-            "</div>",
+            '</div>',
             "<pre class='line-numbers language-$language' data-line='$line' data-language='$language'><code class='language-$language'>$code</code></pre>",
-            "</div>",
+            '</div>',
         ]);
     }
 }
